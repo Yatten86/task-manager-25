@@ -1,0 +1,11 @@
+.task {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.task h2 {
+  color: #3498db;
+}
