@@ -21,6 +21,21 @@ function App() {
     setTasks([...tasks, task]);
   };
 
+  const handleEditTask = (index, newTitle, newDescription) => {
+    const updateTasks = tasks.map((task, taskIndex) =>
+      taskIndex === index
+        ? { title: newTitle, description: newDescription }
+        : task
+    );
+
+    setTasks(updateTasks);
+  };
+
+  const handleDeleteTask = (index) => {
+    const newTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
+    setTasks(newTasks);
+  };
+
   return (
     <div className={`App ${theme}`}>
       {isHomepage ? (
@@ -30,7 +45,11 @@ function App() {
           <h1>Task Manager</h1>
           <AddTask onAdd={handleAddTask} />
 
-          <TaskList tasks={tasks} />
+          <TaskList
+            tasks={tasks}
+            onDelete={handleDeleteTask}
+            onEdit={handleEditTask}
+          />
 
           {/* Change theme button */}
         </>
