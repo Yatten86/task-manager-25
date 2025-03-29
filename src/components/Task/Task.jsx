@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import "./Task.css";
 
-export default function Task({ title, description, onDelete, onEdit }) {
+export default function Task({
+  title,
+  description,
+  onDelete,
+  onEdit,
+  onClick,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
@@ -12,7 +18,7 @@ export default function Task({ title, description, onDelete, onEdit }) {
   };
 
   return (
-    <div className="task">
+    <div className="task" onClick={onClick}>
       {isEditing ? (
         <>
           <input
