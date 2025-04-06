@@ -96,6 +96,7 @@ function App() {
             onDelete={handleDeleteTask}
             onEdit={handleEditTask}
             onClick={handleTaskClick}
+            onToggleComplete={toggleTaskCompletion}
           />
         </>
       )}
