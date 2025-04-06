@@ -43,3 +43,8 @@
 .delete:hover {
   background-color: #b74b3d;
 }
+
+.task.completed {
+  text-decoration: line-through;
+  color: grey;
+}

@@ -4,9 +4,11 @@ import "./Task.css";
 export default function Task({
   title,
   description,
+  completed,
   onDelete,
   onEdit,
   onClick,
+  onToggleComplete,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
@@ -18,7 +20,7 @@ export default function Task({
   };
 
   return (
-    <div className="task" onClick={onClick}>
+    <div className={`task ${completed ? "completed" : ""}`} onClick={onClick}>
       {isEditing ? (
         <>
           <input
@@ -39,12 +41,16 @@ export default function Task({
             <h2>{title}</h2>
             <p>{description}</p>
           </div>
+
           <div className="buttons">
             <button className="delete" onClick={onDelete}>
               Delete Task
             </button>
             <button className="edit" onClick={() => setIsEditing(true)}>
               Edit Task
+            </button>
+            <button onClick={onToggleComplete}>
+              {completed ? "Mark as Incomplete" : "Mark as Complete"}
             </button>
           </div>
         </>
