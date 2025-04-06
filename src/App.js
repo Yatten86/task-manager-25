@@ -1,10 +1,11 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import TaskList from "./components/TaskList/TaskList";
 import AddTask from "./components/AddTask/AddTask";
 import { ThemeContext } from "./ThemeContext/ThemeContext";
 import "./assets/styles/theme.css";
 import Homepage from "./components/Homepage/Homepage";
 import Modal from "./components/Modal/Modal";
+import { saveTasksToLocalStorage } from "./utils/localStorageUtils";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -35,8 +36,18 @@ function App() {
     },
   ]);
 
+  //fetch tasks from Local Storage on component mount
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks)); //updates state with the saved tasks)
+    }
+  }, []);
+
   const handleAddTask = (task) => {
-    setTasks([...tasks, task]);
+    const newTasks = [...tasks, task];
+    setTasks(newTasks);
+    saveTasksToLocalStorage(newTasks); //persist data to local storage
   };
 
   const handleEditTask = (index, newTitle, newDescription) => {
@@ -47,11 +58,13 @@ function App() {
     );
 
     setTasks(updateTasks);
+    saveTasksToLocalStorage(updateTasks);
   };
 
   const handleDeleteTask = (index) => {
     const newTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
     setTasks(newTasks);
+    saveTasksToLocalStorage(newTasks);
   };
 
   const handleTaskClick = (task) => {
@@ -67,6 +80,7 @@ function App() {
       taskIndex === index ? { ...task, completed: !task.completed } : task
     );
     setTasks(updatedTasks);
+    saveTasksToLocalStorage(updatedTasks);
   };
 
   //Filter logic
