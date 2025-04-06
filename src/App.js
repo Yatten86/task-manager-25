@@ -10,12 +10,28 @@ function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isHomepage, setIsHomepage] = useState(true);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [filter, setFilter] = useState("all");
 
   const [tasks, setTasks] = useState([
-    { title: "Learn React", description: "Understand components and props" },
+    {
+      title: "Learn React",
+      description: "Understand components and props",
+      completed: false,
+    },
     {
       title: " Create a Task Manager",
       description: "Build reusable components",
+      completed: false,
+    },
+    {
+      title: "Recapitulate HTML",
+      description: "Refresh your HTML5 information",
+      completed: true,
+    },
+    {
+      title: "Create styled components",
+      description: "Update from plain CSS to TailwinCSS",
+      completed: true,
     },
   ]);
 
@@ -46,6 +62,20 @@ function App() {
     setSelectedTask(null);
   };
 
+  const toggleTaskCompletion = (index) => {
+    const updatedTasks = tasks.map((task, taskIndex) =>
+      taskIndex === index ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks);
+  };
+
+  //Filter logic
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "completed") return task.completed; // complete
+    if (filter === "incomplete") return !task.completed; // incomplete
+    return true; // all
+  });
+
   return (
     <div className={`App ${theme}`}>
       {isHomepage ? (
@@ -55,8 +85,14 @@ function App() {
           <h1>Task Manager</h1>
           <AddTask onAdd={handleAddTask} />
 
+          <div className="filter-buttons">
+            <button onClick={() => setFilter("all")}>All</button>
+            <button onClick={() => setFilter("completed")}>Completed</button>
+            <button onClick={() => setFilter("incomplete")}>Incomplete</button>
+          </div>
+
           <TaskList
-            tasks={tasks}
+            tasks={filteredTasks}
             onDelete={handleDeleteTask}
             onEdit={handleEditTask}
             onClick={handleTaskClick}
