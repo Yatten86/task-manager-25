@@ -17,6 +17,7 @@ export default function TaskList({
           title={task.title}
           description={task.description}
           completed={task.completed}
+          priority={task.priority}
           onDelete={() => {
             onDelete(index);
           }}

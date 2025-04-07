@@ -4,6 +4,7 @@ import "./Task.css";
 export default function Task({
   title,
   description,
+  priority,
   completed,
   onDelete,
   onEdit,
@@ -20,7 +21,12 @@ export default function Task({
   };
 
   return (
-    <div className={`task ${completed ? "completed" : ""}`} onClick={onClick}>
+    <div
+      className={`task ${
+        completed ? "completed" : ""
+      } ${priority.toLowerCase()}`}
+      onClick={onClick}
+    >
       {isEditing ? (
         <>
           <input
@@ -49,6 +55,9 @@ export default function Task({
           <div className="text">
             <h2>{title}</h2>
             <p>{description}</p>
+            <p>
+              Priority: <strong>{priority}</strong>
+            </p>
           </div>
 
           <div className="buttons">

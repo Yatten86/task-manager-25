@@ -48,3 +48,18 @@
   text-decoration: line-through;
   color: grey;
 }
+
+.task.high {
+  border-color: red;
+  background-color: #ffe6e6;
+}
+
+.task.medium {
+  border-color: orange;
+  background-color: #fff4e6;
+}
+
+.task.low {
+  border-color: green;
+  background-color: #e6ffe6;
+}

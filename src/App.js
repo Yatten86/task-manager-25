@@ -18,21 +18,25 @@ function App() {
       title: "Learn React",
       description: "Understand components and props",
       completed: false,
+      priority: "High",
     },
     {
       title: " Create a Task Manager",
       description: "Build reusable components",
       completed: false,
+      priority: "Medium",
     },
     {
       title: "Recapitulate HTML",
       description: "Refresh your HTML5 information",
       completed: true,
+      priority: "Low",
     },
     {
       title: "Create styled components",
       description: "Update from plain CSS to TailwinCSS",
       completed: true,
+      priority: "Medium",
     },
   ]);
 
