@@ -14,9 +14,10 @@ export default function Task({
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
+  const [newPriority, setNewPriority] = useState(priority);
 
   const handleSave = () => {
-    onEdit(newTitle, newDescription);
+    onEdit(newTitle, newDescription, newPriority);
     setIsEditing(false);
   };
 
@@ -41,6 +42,18 @@ export default function Task({
             onChange={(e) => setNewDescription(e.target.value)}
             onClick={(e) => e.stopPropagation()}
           />
+
+          <select
+            name="priority"
+            id="priority"
+            value={newPriority}
+            onChange={(e) => setNewPriority(e.target.value)}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
           <button
             onClick={(e) => {
               e.stopPropagation();
