@@ -54,10 +54,15 @@ function App() {
     saveTasksToLocalStorage(newTasks); //persist data to local storage
   };
 
-  const handleEditTask = (index, newTitle, newDescription) => {
+  const handleEditTask = (index, newTitle, newDescription, newPriority) => {
     const updateTasks = tasks.map((task, taskIndex) =>
       taskIndex === index
-        ? { title: newTitle, description: newDescription }
+        ? {
+            ...task,
+            title: newTitle,
+            description: newDescription,
+            priority: newPriority,
+          }
         : task
     );
 

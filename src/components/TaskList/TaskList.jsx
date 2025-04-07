@@ -21,8 +21,8 @@ export default function TaskList({
           onDelete={() => {
             onDelete(index);
           }}
-          onEdit={(newTitle, newDescription) =>
-            onEdit(index, newTitle, newDescription)
+          onEdit={(newTitle, newDescription, newPriority) =>
+            onEdit(index, newTitle, newDescription, newPriority)
           }
           onClick={() => onClick(task)}
           onToggleComplete={() => onToggleComplete(index)}
