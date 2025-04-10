@@ -12,6 +12,7 @@ function App() {
   const [isHomepage, setIsHomepage] = useState(true);
   const [selectedTask, setSelectedTask] = useState(null);
   const [filter, setFilter] = useState("all");
+  const [showCompleted, setShowCompleted] = useState(false);
 
   const [tasks, setTasks] = useState([
     {
@@ -35,7 +36,7 @@ function App() {
     {
       title: "Create styled components",
       description: "Update from plain CSS to TailwinCSS",
-      completed: true,
+      completed: false,
       priority: "Medium",
     },
   ]);
@@ -93,11 +94,15 @@ function App() {
   };
 
   //Filter logic
-  const filteredTasks = tasks.filter((task) => {
+  const completionFilteredTasks = tasks.filter((task) => {
+    if (!showCompleted && task.completed) return false;
+
     if (filter === "completed") return task.completed; // complete
     if (filter === "incomplete") return !task.completed; // incomplete
     return true; // all
   });
+
+  // console.log("Completion Filtered Tasks:", completionFilteredTasks);
 
   return (
     <div className={`App ${theme}`}>
@@ -108,14 +113,34 @@ function App() {
           <h1>Task Manager</h1>
           <AddTask onAdd={handleAddTask} />
 
-          <div className="filter-buttons">
-            <button onClick={() => setFilter("all")}>All</button>
-            <button onClick={() => setFilter("completed")}>Completed</button>
-            <button onClick={() => setFilter("incomplete")}>Incomplete</button>
+          <div className="filters">
+            {/* Filter by completion */}
+            <div className="filter-dropdown">
+              <label htmlFor="filter">Filter by completion:</label>
+              <select
+                id="filter"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+              >
+                <option value="all">All</option>
+                <option value="completed">Complete</option>
+                <option value="incomplete">Incomplete</option>
+              </select>
+            </div>
+
+            <div className="completed-toggle">
+              <label htmlFor="showCompleted">Show Completed Tasks</label>
+              <input
+                type="checkbox"
+                id="showCompleted"
+                checked={showCompleted}
+                onChange={(e) => setShowCompleted(e.target.checked)}
+              />
+            </div>
           </div>
 
           <TaskList
-            tasks={filteredTasks}
+            tasks={completionFilteredTasks}
             onDelete={handleDeleteTask}
             onEdit={handleEditTask}
             onClick={handleTaskClick}
