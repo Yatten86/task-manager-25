@@ -13,6 +13,7 @@ function App() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [filter, setFilter] = useState("all");
   const [showCompleted, setShowCompleted] = useState(false);
+  const [sortOrder, setSortOrder] = useState("none");
 
   const [tasks, setTasks] = useState([
     {
@@ -102,7 +103,17 @@ function App() {
     return true; // all
   });
 
-  // console.log("Completion Filtered Tasks:", completionFilteredTasks);
+  //Sorting order
+  const sortedTasks = [...completionFilteredTasks].sort((a, b) => {
+    if (sortOrder === "none") return 0; //no sorting
+    if (sortOrder === "asc") {
+      return b.priority.localeCompare(a.priority); //asscending order (Low -> High)
+    }
+    if (sortOrder === "desc") {
+      return a.priority.localeCompare(b.priority); // desscending order (High -> Low)
+    }
+    return 0;
+  });
 
   return (
     <div className={`App ${theme}`}>
@@ -115,7 +126,7 @@ function App() {
 
           <div className="filters">
             {/* Filter by completion */}
-            <div className="filter-dropdown">
+            <div className="dropdown">
               <label htmlFor="filter">Filter by completion:</label>
               <select
                 id="filter"
@@ -125,6 +136,19 @@ function App() {
                 <option value="all">All</option>
                 <option value="completed">Complete</option>
                 <option value="incomplete">Incomplete</option>
+              </select>
+            </div>
+
+            <div className="dropdown">
+              <label htmlFor="sortOrder">Sort by priority</label>
+              <select
+                id="sortOrder"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+              >
+                <option value="none">None</option>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
               </select>
             </div>
 
@@ -140,7 +164,7 @@ function App() {
           </div>
 
           <TaskList
-            tasks={completionFilteredTasks}
+            tasks={sortedTasks}
             onDelete={handleDeleteTask}
             onEdit={handleEditTask}
             onClick={handleTaskClick}

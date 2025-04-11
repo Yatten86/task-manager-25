@@ -19,19 +19,19 @@ code {
   padding-inline: 20px;
 }
 
-.filter-dropdown {
+.dropdown {
   margin: 10px 0;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.filter-dropdown label {
+.dropdown label {
   font-size: 1rem;
   color: var(--text-color);
 }
 
-.filter-dropdown select {
+.dropdown select {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -43,9 +43,11 @@ code {
   align-items: center;
   gap: 10px;
   margin: 10px 0;
+  cursor: pointer;
 }
 
 .completed-toggle label {
   font-size: 1rem;
   color: var(--text-color);
+  cursor: pointer;
 }
